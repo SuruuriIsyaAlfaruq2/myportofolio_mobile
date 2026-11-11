@@ -12,5 +12,5 @@ class AppColors {
   static const Color line = Color(0xFFE3D9C9);
   static const Color textMuted = Color(0xFF6B6459);
   static const Color starNonActive = Color(0xFF6B7280);
-  static const Color starActive = Color(0xD97706);
+  static const Color starActive = Color(0xFFD97706);
 }
