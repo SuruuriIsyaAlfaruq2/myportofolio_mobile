@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myportofolio_mobile/menu.dart';
-
+import 'package:myportofolio_mobile/theme_colors.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -30,9 +30,12 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-          secondary: Colors.amber[700],
+          seedColor: AppColors.accent,
+          primary: AppColors.accent,
+          surface: AppColors.paper,
+          onSurface: AppColors.ink,
           ),
+        scaffoldBackgroundColor: AppColors.paper, 
         useMaterial3: true,
       ),
       home: MyHomePage(),
