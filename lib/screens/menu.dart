@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/theme_colors.dart';
-import 'package:myportofolio_mobile/project_card.dart';
+import 'package:myportofolio_mobile/widgets/project_card.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -12,9 +12,9 @@ class MyHomePage extends StatelessWidget {
 
   // 1. DIUBAH: Memisahkan item Portofolio (Hero) dan Logout dari Grid item sekunder
   final ItemHomepage heroItem = ItemHomepage(
-    "Lihat Portofolio", 
-    Icons.folder_special, 
-    AppColors.accent
+    "Lihat Portofolio",
+    Icons.folder_special,
+    AppColors.accent,
   );
 
   final List<ItemHomepage> gridItems = [
@@ -27,9 +27,9 @@ class MyHomePage extends StatelessWidget {
   ];
 
   final ItemHomepage logoutItem = ItemHomepage(
-    "Logout", 
-    Icons.logout, 
-    AppColors.accentDark
+    "Logout",
+    Icons.logout,
+    AppColors.accentDark,
   );
 
   @override
@@ -38,10 +38,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'MyPortfolio',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -55,11 +52,16 @@ class MyHomePage extends StatelessWidget {
             children: [
               // InfoCard Row
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  InfoCard(title: 'NPM', content: npm),
-                  InfoCard(title: 'Name', content: nama),
-                  InfoCard(title: 'Class', content: kelas),
+                  Expanded(
+                    child: InfoCard(title: 'NPM', content: npm),
+                  ),
+                  Expanded(
+                    child: InfoCard(title: 'Name', content: nama),
+                  ),
+                  Expanded(
+                    child: InfoCard(title: 'Class', content: kelas),
+                  ),
                 ],
               ),
 
@@ -68,19 +70,13 @@ class MyHomePage extends StatelessWidget {
               const Text(
                 'Selamat datang di MyPortfolio Mobile!',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
               ),
 
               const SizedBox(height: 20.0),
 
               // 3. DIUBAH: Hero Action Button (Full Width di paling atas)
-              SizedBox(
-                height: 70,
-                child: ItemCard(heroItem),
-              ),
+              SizedBox(height: 70, child: ItemCard(heroItem)),
 
               const SizedBox(height: 16.0),
 
@@ -92,7 +88,8 @@ class MyHomePage extends StatelessWidget {
                 crossAxisCount: 2, // 2 Kolom agar tombol lebih lega
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 2.2, // Rasio lebar dibanding tinggi kartu tombol
+                childAspectRatio:
+                    2.2, // Rasio lebar dibanding tinggi kartu tombol
                 children: gridItems.map((ItemHomepage item) {
                   return ItemCard(item);
                 }).toList(),
@@ -101,10 +98,7 @@ class MyHomePage extends StatelessWidget {
               const SizedBox(height: 16.0),
 
               // 5. DIUBAH: Logout Button (Full Width di paling bawah)
-              SizedBox(
-                height: 50,
-                child: ItemCard(logoutItem),
-              ),
+              SizedBox(height: 50, child: ItemCard(logoutItem)),
             ],
           ),
         ),
@@ -125,14 +119,10 @@ class InfoCard extends StatelessWidget {
       elevation: 2.0,
       color: Colors.white,
       child: Container(
-        width: MediaQuery.of(context).size.width / 3.5,
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8.0),
             Text(
               content,
