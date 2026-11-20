@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+
 // TODO: Impor drawer yang sudah dibuat sebelumnya
 
 class ExperienceFormPage extends StatefulWidget {
@@ -124,38 +125,66 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
               // === Started At ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Contoh: Januari 2024",
-                    labelText: "Tanggal Mulai",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _startedAt = value ?? "";
+                child: InkWell(
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100),
+                    ).then((date) {
+                      if (date != null) {
+                        setState(() {
+                          _startedAt = date.toString().split(' ')[0];
+                        });
+                      }
                     });
                   },
+                  child: InputDecorator(
+                    decoration: InputDecoration(
+                      labelText: "Tanggal Mulai",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      suffixIcon: const Icon(Icons.calendar_today),
+                    ),
+                    child: Text(
+                      _startedAt.isEmpty ? "Pilih tanggal mulai" : _startedAt,
+                    ),
+                  ),
                 ),
               ),
 
               // === Ended At ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Contoh: Desember 2024",
-                    labelText: "Tanggal Selesai",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _endedAt = value ?? "";
+                child: InkWell(
+                  onTap: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime(2100),
+                    ).then((date) {
+                      if (date != null) {
+                        setState(() {
+                          _endedAt = date.toString().split(' ')[0];
+                        });
+                      }
                     });
                   },
+                  child: InputDecorator(
+                    decoration: InputDecoration(
+                      labelText: "Tanggal Selesai",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      suffixIcon: const Icon(Icons.calendar_today),
+                    ),
+                    child: Text(
+                      _endedAt.isEmpty ? "Pilih tanggal selesai" : _endedAt,
+                    ),
+                  ),
                 ),
               ),
 
