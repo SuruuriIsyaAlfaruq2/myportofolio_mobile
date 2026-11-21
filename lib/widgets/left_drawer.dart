@@ -1,5 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
+import 'package:myportofolio_mobile/screens/form/experience_form.dart';
+import 'package:myportofolio_mobile/screens/form/skills_form.dart';
+import 'package:myportofolio_mobile/screens/form/educations_form.dart';
 // TODO: Impor halaman ProjectFormPage jika sudah dibuat
 
 class LeftDrawer extends StatelessWidget {
@@ -27,7 +30,7 @@ class LeftDrawer extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Explore personal projects and experiences!',
+                  'Explore personal portofolio!',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white,
@@ -52,12 +55,50 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.add_circle_outline),
-            title: const Text('Add Project'),
+            title: const Text('Add Experience'),
             // Navigasi ke halaman tambah proyek
             onTap: () {
               /*
               TODO: Buatlah routing ke halaman ProjectFormPage yang akan dibuat nanti.
               */
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ExperienceFormPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text('Add Skills'),
+            // Navigasi ke halaman tambah proyek
+            onTap: () {
+              /*
+              TODO: Buatlah routing ke halaman ProjectFormPage yang akan dibuat nanti.
+              */
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SkillsFormPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text('Add Educations'),
+            // Navigasi ke halaman tambah proyek
+            onTap: () {
+              /*
+              TODO: Buatlah routing ke halaman ProjectFormPage yang akan dibuat nanti.
+              */
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EducationsFormPage(),
+                ),
+              );
             },
           ),
         ],

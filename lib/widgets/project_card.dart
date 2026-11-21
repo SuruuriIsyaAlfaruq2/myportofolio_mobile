@@ -1,7 +1,8 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/screens/form/educations_form.dart';
 import 'package:myportofolio_mobile/screens/form/experience_form.dart';
+import 'package:myportofolio_mobile/screens/form/skills_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
-
 
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
@@ -19,16 +20,29 @@ class ItemCard extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
+              SnackBar(
+                content: Text("Kamu telah menekan tombol ${item.name}!"),
+              ),
             );
           // Navigate ke halaman yang sesuai
           if (item.name == "Tambah Experience") {
-            // TODO: Gunakan Navigator.push() untuk melakukan navigasi ke MaterialPageRoute yang mencakup ExperienceFormPage
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ExperienceFormPage(),
-              ), 
+                builder: (context) => const ExperienceFormPage(),
+              ),
+            );
+          } else if (item.name == "Tambah Skills") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SkillsFormPage()),
+            );
+          } else if (item.name == "Tambah Education") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EducationsFormPage(),
+              ),
             );
           }
         },
@@ -38,11 +52,7 @@ class ItemCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 24.0,
-                ),
+                Icon(item.icon, color: Colors.white, size: 24.0),
                 const SizedBox(width: 8),
                 Flexible(
                   child: Text(

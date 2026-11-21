@@ -47,6 +47,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  maxLength: 255,
                   decoration: InputDecoration(
                     hintText: "Nama Pengalaman",
                     labelText: "Nama Pengalaman",
@@ -71,6 +72,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  maxLength: 640,
                   maxLines: 5,
                   decoration: InputDecoration(
                     hintText: "Deskripsi Pengalaman",
@@ -192,6 +194,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  maxLength: 1024,
                   decoration: InputDecoration(
                     hintText: "URL gambar thumbnail",
                     labelText: "Tautan Thumbnail",
@@ -217,6 +220,11 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        final today = DateTime.now().toString().split(' ')[0];
+                        setState(() {
+                          _startedAt = _startedAt.isEmpty ? today : _startedAt;
+                          _endedAt = _endedAt.isEmpty ? "Sedang berlangsung" : _endedAt;
+                        });
                         showDialog(
                           context: context,
                           builder: (context) {
