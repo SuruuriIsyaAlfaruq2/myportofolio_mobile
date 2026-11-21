@@ -134,9 +134,28 @@ flutter test
         b. Penambahan aset baru seperti gambar/font import baru
         c. Perubahan pada tipe data global dari final menjadi non-final
 
+### Tugas 8
+1. 
+   - push() menambahkan rute baru ke atas tumpukan route. Halaman sebelumnya tersimpan di memori, sehingga dapat menekan tombol back untuk kembali ke route sebelumnya
+   - pushReplacement() Mengganti rute yang ada di tumpukan dengan rute baru sehingga rute sebelumnya terhapus dan tidak bisa kembali dengan tombol back
+   - pop() menghapus rute yang berada di atas tumpukan rute dan kembali ke rute di bawahnya
+   - Untuk membuka formulir dari kartu aksi menggunakan push() supaya dapat kembali ke halaman utama dari halaman rute yang ditambahkan oleh push() sebelumnya
+   - Pada drawer menggunakan pushReplacement() jadi semua rute sebelum menekan home akan terhapus dan rute kembali ke rute homepage
+2. 
+   - Scaffold berfungsi sebagai container utama yang menyediakan kerangka halaman. Scaffold memiliki bagian bawaan untuk AppBar, Drawer, dan Body. AppBar Menampilkan Header judul sedangkan Drawer menyediakan Navigasi. Scaffold, AppBar, dan Drawer yang digunakan kembali sapat menjadi semacam 'template' untuk halaman lain, sehingga halaman lain hanya perlu mengisi bagian body
+   - Pada AppBar halaman utama dan halaman menggunakan Theme.of(context).colorScheme.primary, sedangkan AppBar pada halaman form Experience, Skills, dan Educations memakai Colors.indigo
+3. Pada halaman form, saya menggunakan Column + padding sebagai widget utama, alasannya karena setiap kotak isian form disusun secara vertikal dari atas ke bawah. Selain itu SingleChildScrollView digunakan sebagai parent dari Column dan Padding karena bisa saja banyaknya kotak form melewati batas tinggi halaman, oleh karena itu penggunaan SingleChildScrollView memungkinkan widget anak-anaknya untuk dapat di-scroll ketika melewati batas. Widget pengatur jarak atau Padding berfungsi untuk mengatur jarak antar widgets sibling dan tepi layar
+4. 
+   - 
+      a. GlobalKey<FormState>: Bertindak sebagai identifier dan controller untuk mengakses serta mengelola status widget Form dari luar pohon widget-nya.
+      b. Validator: fungsi pada kotak form untuk memeriksa apakah nilai yang dimasukkan memenuhi aturan tertentu.
+      c. Validate(): Metode ini mengeksekusi seluruh fungsi validator di dalam Form secara bersamaan dan mengembalikan nilai true hanya jika semua kolom valid.
+   - Contoh penggunaan validator yaitu pada field Nama Experience, pada validator dicek value.trim().isEmpty yaitu ketika isi kotak form nya kosong maka akan menampilkan tulisan bahwa Nama Experience tidak boleh kosong. Memilih jenis input atau papan ketik tidak cukup, karena hanya mengatur tampilan dan tidak otomatis memvalidasi data yang masuk
+
 ## AI Disclosure
 
 
 | Tugas | Deskripsi penggunaan AI | Tautan percakapan AI |
 |---|---|---|
 | Tugas 7 | Membantu membuat layout pilihan dan membuat panduan setup dan instalasi lokal pada Readme.MD | [Gemini](https://share.gemini.google/yucV2D2NP7sS) |
+| Tugas 8 | Membantu memahami fungsi validate, showDatePicker dan validator | [Gemini](https://share.gemini.google/SCl7eXt9Vsm5) |
