@@ -2,6 +2,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/theme_colors.dart';
 import 'package:myportofolio_mobile/widgets/project_card.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -26,14 +28,10 @@ class MyHomePage extends StatelessWidget {
     ItemHomepage("Tambah Education", Icons.note_add, AppColors.textMuted),
   ];
 
-  final ItemHomepage logoutItem = ItemHomepage(
-    "Logout",
-    Icons.logout,
-    AppColors.accentDark,
-  );
-
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = context.watch<AuthState>().isLoggedIn;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -98,7 +96,16 @@ class MyHomePage extends StatelessWidget {
               const SizedBox(height: 16.0),
 
               // 5. DIUBAH: Logout Button (Full Width di paling bawah)
-              SizedBox(height: 50, child: ItemCard(logoutItem)),
+              SizedBox(
+                height: 50,
+                child: ItemCard(
+                  ItemHomepage(
+                    isLoggedIn ? 'Logout' : 'Login',
+                    isLoggedIn ? Icons.logout : Icons.login,
+                    AppColors.accentDark,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
