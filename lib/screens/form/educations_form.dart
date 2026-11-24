@@ -194,7 +194,9 @@ class _EducationsFormPageState extends State<EducationsFormPage> {
                                   Text('Instansi: $_institution'),
                                   Text('Jurusan: $_major'),
                                   Text('Tahun mulai: $_startYear'),
-                                  Text('Tahun selesai: ${_endYear.isEmpty ? "Sekarang" : _endYear}',),
+                                  Text(
+                                    'Tahun selesai: ${_endYear.isEmpty ? "Sekarang" : _endYear}',
+                                  ),
                                   Text('Thumbnail: $_thumbnail'),
                                 ],
                               ),

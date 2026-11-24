@@ -70,11 +70,11 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add Experience'),
             // Navigasi ke halaman tambah proyek
-            onTap: () async{
+            onTap: () async {
               /*
               TODO: Buatlah routing ke halaman ProjectFormPage yang akan dibuat nanti.
               */
-              Navigator.pop(context); 
+              Navigator.pop(context);
               if (!await ensureLoggedIn(context)) return;
               if (!context.mounted) return;
               Navigator.push(
@@ -87,11 +87,11 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add Skills'),
             // Navigasi ke halaman tambah proyek
-            onTap: () async{
+            onTap: () async {
               /*
               TODO: Buatlah routing ke halaman ProjectFormPage yang akan dibuat nanti.
               */
-              Navigator.pop(context); 
+              Navigator.pop(context);
               if (!await ensureLoggedIn(context)) return;
               if (!context.mounted) return;
               Navigator.push(
@@ -104,11 +104,11 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add Educations'),
             // Navigasi ke halaman tambah proyek
-            onTap: () async{
+            onTap: () async {
               /*
               TODO: Buatlah routing ke halaman ProjectFormPage yang akan dibuat nanti.
               */
-              Navigator.pop(context); 
+              Navigator.pop(context);
               if (!await ensureLoggedIn(context)) return;
               if (!context.mounted) return;
               Navigator.push(
@@ -118,31 +118,31 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           if (!isLoggedIn)
-          ListTile(
-            leading: const Icon(Icons.login),
-            title: const Text('Login'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-              );
-            },
-          )
-        else
-          ListTile(
-            leading: const Icon(Icons.logout, color: Colors.red),
-            title: const Text('Logout', style: TextStyle(color: Colors.red)),
-            onTap: () async {
-              Navigator.pop(context);
-              await context.read<AuthState>().logout();
-              if (!context.mounted) return;
+            ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+                );
+              },
+            )
+          else
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text('Logout', style: TextStyle(color: Colors.red)),
+              onTap: () async {
+                Navigator.pop(context);
+                await context.read<AuthState>().logout();
+                if (!context.mounted) return;
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Berhasil logout')),
-              );
-            },
-          ),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Berhasil logout')),
+                );
+              },
+            ),
         ],
       ),
     );
