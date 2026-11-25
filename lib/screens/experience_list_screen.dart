@@ -127,9 +127,7 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
               itemBuilder: (context, index) {
                 final experience = experiences[index];
                 final String? imageUrl = experience.thumbnail;
-                if (imageUrl == null || imageUrl.isEmpty) {
-                  return const Icon(Icons.image_not_supported, size: 50); // Gambar cadangan jika URL kosong
-                }
+                final bool hasImage = imageUrl != null && imageUrl.isNotEmpty;
                 return Card(
                   elevation: 1,
                   color: Colors.white,
@@ -142,17 +140,24 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.network(
-                          imageUrl,
-                          fit: BoxFit.contain,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const Center(child: CircularProgressIndicator());
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.broken_image, color: Colors.red, size: 48);
-                          },
-                        ),
+                        if (hasImage)
+                          Image.network(
+                            imageUrl,
+                            fit: BoxFit.contain,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Icons.broken_image,
+                                color: Colors.red,
+                                size: 48,
+                              );
+                            },
+                          ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
