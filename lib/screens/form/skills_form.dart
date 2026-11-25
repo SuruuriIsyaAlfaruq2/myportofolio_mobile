@@ -15,7 +15,10 @@ class _SkillsFormPageState extends State<SkillsFormPage> {
   String _description = "";
   String _thumbnail = "";
 
-  final List<String> _categories = ["softskills", "hardskills"];
+  final Map<String, String> _categories = const {
+    'softskills': 'Soft Skills',
+    'hardskills': 'Hard Skills',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +44,11 @@ class _SkillsFormPageState extends State<SkillsFormPage> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  items: _categories
+                  items: _categories.entries
                       .map(
-                        (category) => DropdownMenuItem(
-                          value: category,
-                          child: Text(
-                            category == "softskills"
-                                ? "Soft Skills"
-                                : "Hard Skills",
-                          ),
+                        (entry) => DropdownMenuItem(
+                          value: entry.key,
+                          child: Text(entry.value),
                         ),
                       )
                       .toList(),
@@ -132,7 +131,9 @@ class _SkillsFormPageState extends State<SkillsFormPage> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Kategori: $_category'),
+                                  Text(
+                                    'Kategori: ${_categories[_category] ?? _category}',
+                                  ),
                                   Text('Nama Skill: $_title'),
                                   Text('Deskripsi: $_description'),
                                   Text('Thumbnail: $_thumbnail'),

@@ -154,7 +154,6 @@ flutter test
 
 ## AI Disclosure
 
-
 | Tugas | Deskripsi penggunaan AI | Tautan percakapan AI |
 |---|---|---|
 | Tugas 7 | Membantu membuat layout pilihan dan membuat panduan setup dan instalasi lokal pada Readme.MD | [Gemini](https://share.gemini.google/yucV2D2NP7sS) |

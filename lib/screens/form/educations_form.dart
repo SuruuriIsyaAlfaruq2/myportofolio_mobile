@@ -180,9 +180,6 @@ class _EducationsFormPageState extends State<EducationsFormPage> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          _endYear = _endYear.isEmpty ? "Sekarang" : _endYear;
-                        });
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -197,7 +194,9 @@ class _EducationsFormPageState extends State<EducationsFormPage> {
                                   Text('Instansi: $_institution'),
                                   Text('Jurusan: $_major'),
                                   Text('Tahun mulai: $_startYear'),
-                                  Text('Tahun selesai: $_endYear'),
+                                  Text(
+                                    'Tahun selesai: ${_endYear.isEmpty ? "Sekarang" : _endYear}',
+                                  ),
                                   Text('Thumbnail: $_thumbnail'),
                                 ],
                               ),
