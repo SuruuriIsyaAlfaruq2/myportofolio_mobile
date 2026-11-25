@@ -4,6 +4,7 @@ import 'package:myportofolio_mobile/screens/form/experience_form.dart';
 import 'package:myportofolio_mobile/screens/form/skills_form.dart';
 import 'package:myportofolio_mobile/screens/experience_list_screen.dart';
 import 'package:myportofolio_mobile/screens/skills_list_screen.dart';
+import 'package:myportofolio_mobile/screens/educations_list_screen.dart';
 import 'package:myportofolio_mobile/screens/login_screen.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/services/api_client.dart';
@@ -77,12 +78,16 @@ class ItemCard extends StatelessWidget {
                 builder: (context) => const ExperienceListScreen(),
               ),
             );
-          } 
-          if (item.name == "Lihat Skills") {
+          } else if (item.name == "Lihat Skills") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SkillsListScreen()),
+            );
+          } else if (item.name == "Lihat Education") {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SkillsListScreen(),
+                builder: (context) => const EducationsListScreen(),
               ),
             );
           } else if (item.name == "Tambah Experience") {

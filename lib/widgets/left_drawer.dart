@@ -6,6 +6,7 @@ import 'package:myportofolio_mobile/screens/form/skills_form.dart';
 import 'package:myportofolio_mobile/screens/form/educations_form.dart';
 import 'package:myportofolio_mobile/screens/experience_list_screen.dart';
 import 'package:myportofolio_mobile/screens/skills_list_screen.dart';
+import 'package:myportofolio_mobile/screens/educations_list_screen.dart';
 import 'package:myportofolio_mobile/services/auth_state.dart';
 import 'package:myportofolio_mobile/widgets/auth_guard.dart';
 import 'package:provider/provider.dart';
@@ -75,6 +76,18 @@ class LeftDrawer extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const SkillsListScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.school_outlined),
+            title: const Text('Educations'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EducationsListScreen(),
                 ),
               );
             },
