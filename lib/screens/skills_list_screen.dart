@@ -81,6 +81,14 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
 
           final skills = snapshot.data ?? const <Skills>[];
 
+          final hardSkills = skills
+              .where((skill) => skill.category == 'hardskills')
+              .toList();
+          final softSkills = skills
+              .where((skill) => skill.category == 'softskills')
+              .toList();
+          final displaySkills = [...hardSkills, ...softSkills];
+          final softHeaderIndex = hardSkills.length + 1;
           if (skills.isEmpty) {
             return RefreshIndicator(
               onRefresh: _reload,
@@ -99,10 +107,18 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
             child: ListView.separated(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(16),
-              itemCount: skills.length,
+              itemCount: displaySkills.length +2,
               separatorBuilder: (_, _) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
-                final skill = skills[index];
+                if (index == 0) {
+                  return Text('Hard Skills (${hardSkills.length})');
+                }
+                if (index == softHeaderIndex) {
+                  return Text('Soft Skills (${softSkills.length})');
+                }
+
+                final skillIndex = index < softHeaderIndex ? index - 1 : index - 2;
+                final skill = displaySkills[skillIndex];
                 final String? imageUrl = skill.thumbnail;
                 final bool hasImage = imageUrl != null && imageUrl.isNotEmpty;
 
