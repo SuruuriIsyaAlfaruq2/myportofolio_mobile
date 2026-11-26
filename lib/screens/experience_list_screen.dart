@@ -71,7 +71,7 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
-      drawer: const LeftDrawer(),
+      drawer: const LeftDrawer(currentPage: LeftDrawerPage.experience),
       body: FutureBuilder<List<Experience>>(
         future: _experienceFuture,
         builder: (context, snapshot) {
@@ -126,6 +126,8 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
               separatorBuilder: (_, _) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final experience = experiences[index];
+                final String? imageUrl = experience.thumbnail;
+                final bool hasImage = imageUrl != null && imageUrl.isNotEmpty;
                 return Card(
                   elevation: 1,
                   color: Colors.white,
@@ -138,19 +140,27 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if (hasImage)
+                          Image.network(
+                            imageUrl,
+                            fit: BoxFit.contain,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Icons.broken_image,
+                                color: Colors.red,
+                                size: 48,
+                              );
+                            },
+                          ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircleAvatar(
-                              backgroundColor: AppColors.accent,
-                              foregroundColor: Colors.white,
-                              child: Text(
-                                experience.title.isEmpty
-                                    ? '?'
-                                    : experience.title[0].toUpperCase(),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

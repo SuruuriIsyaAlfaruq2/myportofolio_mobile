@@ -32,7 +32,11 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await context.read<AuthState>().login(_username, _password);
       if (!mounted) return;
+      final messenger = ScaffoldMessenger.of(context);
       Navigator.pop(context, true);
+      messenger.showSnackBar(
+        SnackBar(content: Text('Login berhasil. Selamat datang $_username')),
+      );
     } on ApiException catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

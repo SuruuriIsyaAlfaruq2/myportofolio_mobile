@@ -75,6 +75,57 @@ flutter doctor
    flutter run
    ```
 
+### Menjalankan dengan Backend Django
+
+1. **Django lokal + emulator Android** *(Terminal 1 untuk Django, Terminal 2 untuk Flutter)*: Pastikan `10.0.2.2` sudah ada di `ALLOWED_HOSTS` pada `portofolio/settings.py`.
+
+   ```bash
+   # Terminal 1 (di repository Django)
+   python manage.py runserver
+
+   # Terminal 2 (di repository Flutter; default API: http://10.0.2.2:8000)
+   flutter run
+   ```
+
+2. **Django lokal + Chrome / Flutter Web**:
+
+   ```bash
+   # Terminal 1 (di repository Django)
+   python manage.py runserver
+
+   # Terminal 2 (di repository Flutter)
+   flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:8000
+   ```
+
+3. **Django lokal + perangkat Android fisik (via `adb`)**:
+
+   ```bash
+   # Terminal 1 (di repository Django)
+   python manage.py runserver
+
+   # Terminal 2 (dengan USB debugging aktif, di repository Flutter)
+   adb reverse tcp:8000 tcp:8000
+   flutter run --dart-define=API_BASE_URL=http://localhost:8000
+   ```
+
+4. **Django sudah deploy (PWS / PaaS) + Flutter**: Saat menguji terhadap server Django yang sudah di-deploy:
+
+   ```bash
+   # Jalankan Flutter secara lokal dengan backend yang sudah di-deploy
+   flutter run --dart-define=API_BASE_URL=https://suruuri-isya-myportfolio.pws.cs.ui.ac.id
+
+   # Build APK yang menunjuk ke backend yang sudah di-deploy
+   flutter build apk --dart-define=API_BASE_URL=https://suruuri-isya-myportfolio.pws.cs.ui.ac.id
+   ```
+
+   Untuk build APK melalui GitHub Actions, workflow menggunakan repository variable `API_BASE_URL`. Atur variabel tersebut di halaman utama repositori:
+
+   1. Buka **Settings**.
+   2. Pada sidebar, buka **Secrets and variables** > **Actions**.
+   3. Pilih tab **Variables**, lalu klik **New repository variable**.
+   4. Isi **Name** dengan `API_BASE_URL` dan **Value** dengan URL backend Django, tanpa garis miring `/` di akhir.
+   5. Klik **Add variable**.
+
 ## Pengelolaan Konten
 
 Informasi pemilik portofolio dan daftar menu saat ini ditentukan langsung di `lib/menu.dart`. Untuk mengubah warna aplikasi, sesuaikan nilai pada `lib/theme_colors.dart`. Tombol-tombol menu belum terhubung ke penyimpanan atau operasi tambah, ubah, dan hapus data.

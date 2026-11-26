@@ -1,4 +1,10 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/models/skills.dart';
+import 'package:myportofolio_mobile/screens/skills_list_screen.dart';
+import 'package:myportofolio_mobile/services/api_client.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart';
+import 'package:provider/provider.dart';
 
 class SkillsFormPage extends StatefulWidget {
   const SkillsFormPage({super.key});
@@ -14,11 +20,85 @@ class _SkillsFormPageState extends State<SkillsFormPage> {
   String _title = "";
   String _description = "";
   String _thumbnail = "";
+  bool _isSubmitting = false;
 
   final Map<String, String> _categories = const {
     'softskills': 'Soft Skills',
     'hardskills': 'Hard Skills',
   };
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    try {
+      final loggedIn = await ensureLoggedIn(context);
+      if (!loggedIn || !mounted) return;
+
+      final authState = context.read<AuthState>();
+      final token = authState.token;
+      if (token == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Silakan login untuk menyimpan data.')),
+        );
+        await ensureLoggedIn(context);
+        return;
+      }
+
+      final newSkill = Skills(
+        category: _category,
+        title: _title.trim(),
+        description: _description.trim(),
+        thumbnail: _thumbnail.trim().isEmpty ? null : _thumbnail.trim(),
+      );
+      await context.read<ApiClient>().createSkills(newSkill, token: token);
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Skill berhasil ditambahkan.')),
+      );
+      await Navigator.push<void>(
+        context,
+        MaterialPageRoute<void>(builder: (_) => const SkillsListScreen()),
+      );
+    } on ApiException catch (error) {
+      if (!mounted) return;
+
+      if (error.statusCode == 401) {
+        final authState = context.read<AuthState>();
+        try {
+          await authState.logout();
+        } on ApiException {
+          // AuthState clears the local token even when the logout request fails.
+        }
+
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sesi berakhir. Silakan login kembali.'),
+          ),
+        );
+        await ensureLoggedIn(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Gagal menambahkan skill (${error.statusCode}): ${error.message}',
+            ),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSubmitting = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,49 +200,17 @@ class _SkillsFormPageState extends State<SkillsFormPage> {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(Colors.indigo),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Skill berhasil ditambahkan!'),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Kategori: ${_categories[_category] ?? _category}',
-                                  ),
-                                  Text('Nama Skill: $_title'),
-                                  Text('Deskripsi: $_description'),
-                                  Text('Thumbnail: $_thumbnail'),
-                                ],
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                    setState(() {
-                                      _category = "hardskills";
-                                      _title = "";
-                                      _description = "";
-                                      _thumbnail = "";
-                                    });
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: const Text(
-                      "Simpan",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    onPressed: _isSubmitting ? null : _submit,
+                    child: _isSubmitting
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Text(
+                            "Simpan",
+                            style: TextStyle(color: Colors.white),
+                          ),
                   ),
                 ),
               ),

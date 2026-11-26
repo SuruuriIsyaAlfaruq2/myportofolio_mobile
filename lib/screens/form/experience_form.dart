@@ -81,6 +81,9 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
       );
 
       if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Experience berhasil ditambahkan.')),
+      );
       await Navigator.push<void>(
         context,
         MaterialPageRoute<void>(builder: (_) => const ExperienceListScreen()),
