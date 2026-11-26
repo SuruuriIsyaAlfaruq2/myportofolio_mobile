@@ -58,6 +58,9 @@ class _EducationsFormPageState extends State<EducationsFormPage> {
       );
 
       if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Education berhasil ditambahkan.')),
+      );
       await Navigator.push<void>(
         context,
         MaterialPageRoute<void>(builder: (_) => const EducationsListScreen()),

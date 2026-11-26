@@ -57,6 +57,9 @@ class _SkillsFormPageState extends State<SkillsFormPage> {
       await context.read<ApiClient>().createSkills(newSkill, token: token);
 
       if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Skill berhasil ditambahkan.')),
+      );
       await Navigator.push<void>(
         context,
         MaterialPageRoute<void>(builder: (_) => const SkillsListScreen()),
