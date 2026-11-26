@@ -203,9 +203,28 @@ flutter test
       c. Validate(): Metode ini mengeksekusi seluruh fungsi validator di dalam Form secara bersamaan dan mengembalikan nilai true hanya jika semua kolom valid.
    - Contoh penggunaan validator yaitu pada field Nama Experience, pada validator dicek value.trim().isEmpty yaitu ketika isi kotak form nya kosong maka akan menampilkan tulisan bahwa Nama Experience tidak boleh kosong. Memilih jenis input atau papan ketik tidak cukup, karena hanya mengatur tampilan dan tidak otomatis memvalidasi data yang masuk
 
+### Tugas 9
+1. 
+   - @JsonSerializable(fieldRename: FieldRename.snake) berfungsi untuk meng-konversi penamaan variabel dari camelCase dart menjadi snake_case yang diterima python.
+   - @JsonKey(includeToJson: false) digunakan supaya field yang read-only tidak diubah menjadi JSON
+   - Penggunaan Map sapat menyebabkan error karena camelCase yang digunakan di dart tidak direkognisi oleh python
+   - Contoh bug yang mungkin terjadi: Misal pada models experience di dart waktu dimulai experience disimpan dengan startedAt, namun pada django python disimpan dengan nama started_at sehingga tidak direkogini.
+2. 
+   - Future diinisialisasi di initState() dan bukan di build() karena method build() dapat beberapa kali dipanggil sepanjang lifecycle aplikasi. ketika ditaruh di dalam metode build(), setiap kali build() dipanggil maka akan berulang kali memanggil api yang akan boros tentunya. maka dari itu diletakkan di initState() supaya tidak sesering itu memanggil api
+   - ApiClient melempar ApiException daripada mengembalikan null karena dengan begitu dapat dibedakan apa kesalahan apinya, jika return null, kesalahan 400 bad request dan 401 unauthorized tidak dapat dibedakan. (digunakan untuk kebutuhan informasi kegagalan apa yang terjadi)
+3. 
+   - SessionAuthentication bersifat stateful, Django menyimpan data user dan setiap kali meminta data ke domain yang sama maka browser otomatis menempelkan header Cookie: sessionid=.. Serta ketika menggunakan metode yang mengubah data, Django mewajibkan X-CSRFToken.
+   - TokenAuthentication bersifat stateless, Server menyimpan satu baris string acak di tabel authtoken_token, lalu aplikasi Flutter menyimpan token itu di penyimpanan lokal perangkat. Aplikasi Flutter wajib menempelkan header Authorization: Token <..> secara manual pada setiap pemanggilan HTTP. Selain itu, Header Authorization tidak pernah dikirim otomatis oleh sistem operasi maupun browser.
+   - myportofolio_mobile menggunakan TokenAuthentication karena flutter tidak menyimpan cookie otomatis bawaan browser. Selain itu, SessionAuthentication Tetap diaktifkan di backend django untuk melayani permintaan pada versi webnya
+4.  
+   - build (very_good_workflows) menyiapkan Flutter dan dependensinya lalu menjalankan serangkaian tes sesuai aturannya.
+   - build_apk berjalan setelah tahap verifikasi berhasil untuk memastikan aplikasi dapat dikompilasi menjadi artefak rilis/debug Android secara, sekaligus menyediakan artefak .apk yang siap diunduh dan diuji pada perangkat fisik.
+   - *.g.dart masuk ke .gitignore meski dibutuhkan CI karena seringkali menimbulkan merge conflict dan dalam pengetesan, build_runner otomatis membuat berkas tersebut.
+
 ## AI Disclosure
 
 | Tugas | Deskripsi penggunaan AI | Tautan percakapan AI |
 |---|---|---|
 | Tugas 7 | Membantu membuat layout pilihan dan membuat panduan setup dan instalasi lokal pada Readme.MD | [Gemini](https://share.gemini.google/yucV2D2NP7sS) |
 | Tugas 8 | Membantu memahami fungsi validate, showDatePicker dan validator | [Gemini](https://share.gemini.google/SCl7eXt9Vsm5) |
+| Tugas 9 | Membantu memahami cara menggunakan CI/CD pada main.yaml dan mencari referensi penggunaan listView yang memiliki penanda pada halaman yang sedang aktif | [Gemini](https://share.gemini.google/75QIiALEThNT) |
