@@ -40,7 +40,7 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      drawer: const LeftDrawer(),
+      drawer: const LeftDrawer(currentPage: LeftDrawerPage.home),
       // 2. DIUBAH: Membungkus seluruh Body dengan SingleChildScrollView agar bisa di-scroll
       body: SingleChildScrollView(
         child: Padding(

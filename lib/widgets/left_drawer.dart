@@ -13,12 +13,17 @@ import 'package:provider/provider.dart';
 
 // TODO: Impor halaman ProjectFormPage jika sudah dibuat
 
+enum LeftDrawerPage { home, experience, skills, educations }
+
 class LeftDrawer extends StatelessWidget {
-  const LeftDrawer({super.key});
+  const LeftDrawer({required this.currentPage, super.key});
+
+  final LeftDrawerPage currentPage;
 
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = context.watch<AuthState>().isLoggedIn;
+    final selectedTileColor = Theme.of(context).colorScheme.primaryContainer;
 
     return Drawer(
       child: ListView(
@@ -46,6 +51,8 @@ class LeftDrawer extends StatelessWidget {
           ),
           // TODO: Bagian routing
           ListTile(
+            selected: currentPage == LeftDrawerPage.home,
+            selectedTileColor: selectedTileColor,
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
             // Navigasi ke halaman utama portofolio
@@ -57,6 +64,8 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            selected: currentPage == LeftDrawerPage.experience,
+            selectedTileColor: selectedTileColor,
             leading: const Icon(Icons.work_outline),
             title: const Text('Experience'),
             onTap: () {
@@ -69,7 +78,9 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.work_outline),
+            selected: currentPage == LeftDrawerPage.skills,
+            selectedTileColor: selectedTileColor,
+            leading: const Icon(Icons.code),
             title: const Text('Skills'),
             onTap: () {
               Navigator.push(
@@ -81,6 +92,8 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            selected: currentPage == LeftDrawerPage.educations,
+            selectedTileColor: selectedTileColor,
             leading: const Icon(Icons.school_outlined),
             title: const Text('Educations'),
             onTap: () {

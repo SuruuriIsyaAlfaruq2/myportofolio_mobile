@@ -71,7 +71,7 @@ class _ExperienceListScreenState extends State<ExperienceListScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
-      drawer: const LeftDrawer(),
+      drawer: const LeftDrawer(currentPage: LeftDrawerPage.experience),
       body: FutureBuilder<List<Experience>>(
         future: _experienceFuture,
         builder: (context, snapshot) {

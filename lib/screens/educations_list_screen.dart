@@ -40,7 +40,7 @@ class _EducationsListScreenState extends State<EducationsListScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
-      drawer: const LeftDrawer(),
+      drawer: const LeftDrawer(currentPage: LeftDrawerPage.educations),
       body: FutureBuilder<List<Educations>>(
         future: _educationsFuture,
         builder: (context, snapshot) {

@@ -48,7 +48,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
       ),
-      drawer: const LeftDrawer(),
+      drawer: const LeftDrawer(currentPage: LeftDrawerPage.skills),
       body: FutureBuilder<List<Skills>>(
         future: _skillsFuture,
         builder: (context, snapshot) {
