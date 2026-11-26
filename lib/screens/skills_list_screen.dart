@@ -30,10 +30,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
   }
 
   String _categoryLabel(String category) {
-    const labels = {
-      'softskills': 'Soft Skills',
-      'hardskills': 'Hard Skills',
-    };
+    const labels = {'softskills': 'Soft Skills', 'hardskills': 'Hard Skills'};
     return labels[category] ?? category;
   }
 
@@ -107,7 +104,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
             child: ListView.separated(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.all(16),
-              itemCount: displaySkills.length +2,
+              itemCount: displaySkills.length + 2,
               separatorBuilder: (_, _) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 if (index == 0) {
@@ -117,7 +114,9 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   return Text('Soft Skills (${softSkills.length})');
                 }
 
-                final skillIndex = index < softHeaderIndex ? index - 1 : index - 2;
+                final skillIndex = index < softHeaderIndex
+                    ? index - 1
+                    : index - 2;
                 final skill = displaySkills[skillIndex];
                 final String? imageUrl = skill.thumbnail;
                 final bool hasImage = imageUrl != null && imageUrl.isNotEmpty;
@@ -134,59 +133,61 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      if (hasImage) ...[
-                        Image.network(
-                          imageUrl,
-                          width: 40,
-                          height: 80,
-                          fit: BoxFit.contain,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const SizedBox(
-                              width: 40,
-                              height: 80,
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return const SizedBox.shrink();
-                          },
+                        if (hasImage) ...[
+                          Image.network(
+                            imageUrl,
+                            width: 40,
+                            height: 80,
+                            fit: BoxFit.contain,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const SizedBox(
+                                width: 40,
+                                height: 80,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return const SizedBox.shrink();
+                            },
+                          ),
+                          const SizedBox(width: 12),
+                        ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                skill.title,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.ink,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                _categoryLabel(skill.category),
+                                style: const TextStyle(
+                                  color: AppColors.accentDark,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                skill.description,
+                                style: const TextStyle(
+                                  color: AppColors.ink,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        const SizedBox(width: 12),
-                      ],                    
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              skill.title,
-                              style: const TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.ink,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              _categoryLabel(skill.category),
-                              style: const TextStyle(
-                                color: AppColors.accentDark,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              skill.description,
-                              style: const TextStyle(
-                                color: AppColors.ink,
-                                height: 1.4,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                   ),
                 );
               },

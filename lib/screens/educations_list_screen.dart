@@ -113,12 +113,9 @@ class _EducationsListScreenState extends State<EducationsListScreen> {
                             // Garis atas
                             Expanded(
                               flex: 1,
-                              child: Container(
-                                width: 2,
-                                color: AppColors.line,
-                              ),
+                              child: Container(width: 2, color: AppColors.line),
                             ),
-                            // Titik 
+                            // Titik
                             Container(
                               width: 14,
                               height: 14,
@@ -136,10 +133,7 @@ class _EducationsListScreenState extends State<EducationsListScreen> {
                             // Garis bawah
                             Expanded(
                               flex: 1,
-                              child: Container(
-                                width: 2,
-                                color: AppColors.line,
-                              ),
+                              child: Container(width: 2, color: AppColors.line),
                             ),
                           ],
                         ),
@@ -151,7 +145,7 @@ class _EducationsListScreenState extends State<EducationsListScreen> {
                         child: Padding(
                           padding: EdgeInsets.only(bottom: isLast ? 0 : 16),
                           child: Card(
-                            margin: EdgeInsets.zero, 
+                            margin: EdgeInsets.zero,
                             elevation: 1,
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
@@ -169,25 +163,30 @@ class _EducationsListScreenState extends State<EducationsListScreen> {
                                       width: 40,
                                       height: 80,
                                       fit: BoxFit.contain,
-                                      loadingBuilder: (context, child, loadingProgress) {
-                                        if (loadingProgress == null) return child;
-                                        return const SizedBox(
-                                          width: 40,
-                                          height: 80,
-                                          child: Center(
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        );
-                                      },
-                                      errorBuilder: (context, error, stackTrace) {
-                                        return const SizedBox.shrink();
-                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return const SizedBox(
+                                              width: 40,
+                                              height: 80,
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                            );
+                                          },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return const SizedBox.shrink();
+                                          },
                                     ),
                                     const SizedBox(width: 12),
                                   ],
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const SizedBox(height: 8),
                                         Text(
